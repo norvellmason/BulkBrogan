@@ -11,7 +11,7 @@ public class Control : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(Input.GetButtonDown("joystick button 1"))
+        if(Input.GetKeyDown(KeyCode.Space))
             gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, 1f);
 	}
 }
