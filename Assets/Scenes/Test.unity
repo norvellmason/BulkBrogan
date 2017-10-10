@@ -246,6 +246,7 @@ MonoBehaviour:
   friction: 0.963
   punchStrength: 15
   kickStrength: 20
+  hitmultiplier: 1
 --- !u!212 &817311500
 SpriteRenderer:
   m_ObjectHideFlags: 0
