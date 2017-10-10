@@ -12,7 +12,7 @@ public class ButtonClick : MonoBehaviour {
         switch (buttonName)
         {
             case "game":
-                SceneManager.LoadScene("Test");
+                SceneManager.LoadScene("Level 1");
                 break;
             case "options":
                 break;
