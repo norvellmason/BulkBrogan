@@ -13,19 +13,26 @@ public class PlayerOneControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
     {
-        if(Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow))
+        float horizontalAxis = Input.GetAxis("P2 Horizontal");
+
+        if(Input.GetKey(KeyCode.RightArrow) && !Input.GetKey(KeyCode.LeftArrow) || horizontalAxis > 0.5)
             actionController.MoveRight();
 
-        if(Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow))
+        if(Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) || horizontalAxis < -.5)
             actionController.MoveLeft();
 
-        if(Input.GetKeyDown(KeyCode.Space))
+        if(Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("P2 Jump"))
             actionController.Jump();
 
-        if(Input.GetKeyDown(KeyCode.A))
+        if(Input.GetKeyDown(KeyCode.A) || Input.GetButtonDown("P2 Punch"))
             actionController.Punch();
 
-        if(Input.GetKeyDown(KeyCode.S))
+        if(Input.GetKeyDown(KeyCode.S) || Input.GetButtonDown("P2 Kick"))
             actionController.Kick();
+
+        if(transform.position.y < -5)
+        {
+            transform.position = new Vector3((float)((Random.value - 0.5) * 8), 5, 0);
+        }
     }
 }
