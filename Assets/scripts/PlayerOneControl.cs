@@ -6,9 +6,8 @@ public class PlayerOneControl : MonoBehaviour {
 
     public ActionController actionController;
 
-	// Use this for initialization
-	void Start () {
-		
+    // Use this for initialization
+    void Start () {
 	}
 	
 	// Update is called once per frame
@@ -22,5 +21,11 @@ public class PlayerOneControl : MonoBehaviour {
 
         if(Input.GetKeyDown(KeyCode.Space))
             actionController.Jump();
+
+        if(Input.GetKeyDown(KeyCode.A))
+            actionController.Punch();
+
+        if(Input.GetKeyDown(KeyCode.S))
+            actionController.Kick();
     }
 }

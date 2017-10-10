@@ -7,14 +7,42 @@ public class ActionController : MonoBehaviour {
     public float movementSpeed;
     public float jumpStrength;
 
+    public Sprite idleSprite;
+    public Sprite punchSprite;
+    public Sprite kickSprite;
+
     private new Rigidbody2D rigidbody;
     private new BoxCollider2D collider;
+    private new SpriteRenderer renderer;
+
+    private int punchTimer = 0;
+    private int kickTimer = 0;
 
     // Use this for initialization
     void Start()
     {
         rigidbody = GetComponent<Rigidbody2D>();
         collider  = GetComponent<BoxCollider2D>();
+        renderer  = GetComponent<SpriteRenderer>();
+    }
+
+    void FixedUpdate()
+    {
+        if(renderer != null)
+        {
+            if(punchTimer > 0)
+                punchTimer -= 1;
+
+            if(kickTimer > 0)
+                kickTimer -= 1;
+
+            if(punchTimer == 0 && kickTimer == 0)
+                renderer.sprite = idleSprite;
+            else if(punchTimer > 0)
+                renderer.sprite = punchSprite;
+            else if(kickTimer > 0)
+                renderer.sprite = kickSprite;
+        }
     }
 
     public void MoveRight()
@@ -41,6 +69,22 @@ public class ActionController : MonoBehaviour {
         {
             if(OnGround())
                 rigidbody.AddForce(new Vector2(0, jumpStrength));
+        }
+    }
+
+    public void Punch()
+    {
+        if(punchTimer == 0 && kickTimer == 0)
+        {
+            punchTimer = 10;
+        }
+    }
+
+    public void Kick()
+    {
+        if(punchTimer == 0 && kickTimer == 0)
+        {
+            kickTimer = 15;
         }
     }
 
