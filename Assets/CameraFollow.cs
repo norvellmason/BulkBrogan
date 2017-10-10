@@ -27,7 +27,8 @@ public class CameraFollow : MonoBehaviour {
 
         foreach(GameObject target in targets)
             focus += new Vector3(target.transform.position.x, target.transform.position.y, zDepth);
-
-        return focus / targets.Length;
+        
+        focus /= targets.Length;
+        return focus;
     }
 }

@@ -11,6 +11,8 @@ public class PlayerOneControl : MonoBehaviour {
     public float punchStrength = 10f;
     public float kickStrength = 7f;
 
+    public float hitmultiplier = 1.0f;
+
     private Rigidbody2D rigidbody;
     private bool facingRight = true;
 
@@ -19,6 +21,11 @@ public class PlayerOneControl : MonoBehaviour {
     {
         rigidbody = GetComponent<Rigidbody2D>();
 	}
+
+    public void Hit(Vector2 direction)
+    {
+        rigidbody.AddForce(direction * hitmultiplier);
+    }
 	
 	// Update is called once per frame
 	void Update ()
