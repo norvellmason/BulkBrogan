@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerTwoControl : MonoBehaviour {
-
+public class PunchEnemyAI : MonoBehaviour
+{
     public float speed = 6;
     public float jumpStrength;
-    [Range(0, 1)]public float friction;
+    [Range(0, 1)] public float friction;
 
     public float punchStrength = 10f;
     public float kickStrength = 7f;
     private int timesHit = 0;
+
+    public GameObject target;
 
     private Rigidbody2D rigidbody;
     private bool facingRight = true;
@@ -24,31 +26,31 @@ public class PlayerTwoControl : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        if(transform.position.y < -7f)
+        if (transform.position.y < -7f)
             rigidbody.position = new Vector2((float)((Random.value - 0.5) * 4), 3);
 
         float horizontalAxis = Input.GetAxis("P1 Horizontal");
 
-        if(horizontalAxis > 0.5)
+        if (target.transform.position.x - target.GetComponent<BoxCollider2D>().size.x - 1 > transform.position.x)
         {
             // rigidbody.velocity = new Vector2(movemenSpeed, rigidbody.velocity.y);
-            if(rigidbody.velocity.x < 0)
+            if (rigidbody.velocity.x < 0)
                 rigidbody.AddForce(new Vector2(3 * speed, 0));
             else
                 rigidbody.AddForce(new Vector2(speed, 0));
 
-            if(!facingRight)
+            if (!facingRight)
                 Flip();
         }
-        else if(horizontalAxis < -.5)
+        else if (target.transform.position.x + target.GetComponent<BoxCollider2D>().size.x + 1 < transform.position.x)
         {
             // rigidbody.velocity = new Vector2(-movemenSpeed, rigidbody.velocity.y);
-            if(rigidbody.velocity.x > 0)
+            if (rigidbody.velocity.x > 0)
                 rigidbody.AddForce(new Vector2(-3 * speed, 0));
             else
                 rigidbody.AddForce(new Vector2(-speed, 0));
 
-            if(facingRight)
+            if (facingRight)
                 Flip();
         }
 
@@ -56,13 +58,13 @@ public class PlayerTwoControl : MonoBehaviour {
 
         Debug.DrawRay(rigidbody.position + new Vector2(transform.localScale.x * 0.3f, 0), new Vector2(transform.localScale.x, 0));
 
-        if(Input.GetButtonDown("P1 Jump") && OnGround())
+        if (Input.GetButtonDown("P1 Jump") && OnGround())
             Jump();
 
-        if(Input.GetButtonDown("P1 Punch") && OnGround())
+        if (Input.GetButtonDown("P1 Punch") && OnGround())
             Hit(punchStrength, 4);
 
-        if(Input.GetButtonDown("P1 Kick") && OnGround())
+        if (Input.GetButtonDown("P1 Kick") && OnGround())
             Hit(kickStrength, 7);
     }
 
@@ -74,9 +76,9 @@ public class PlayerTwoControl : MonoBehaviour {
         {
             //hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x * strength, upwards);
             if (facingRight)
-                hit.collider.GetComponent<PlayerTwoControl>().GetHit(strength, upwards, 1);
+                hit.collider.GetComponent<PlayerOneControl>().GetHit(strength, upwards, 1);
             else
-                hit.collider.GetComponent<PlayerTwoControl>().GetHit(strength, upwards, -1);
+                hit.collider.GetComponent<PlayerOneControl>().GetHit(strength, upwards, -1);
         }
     }
 
