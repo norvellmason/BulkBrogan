@@ -10,6 +10,7 @@ public class PlayerOneControl : MonoBehaviour {
 
     public float punchStrength = 10f;
     public float kickStrength = 7f;
+    private int timesHit = 0;
 
     private Rigidbody2D rigidbody;
     private bool facingRight = true;
@@ -73,8 +74,22 @@ public class PlayerOneControl : MonoBehaviour {
     {
         RaycastHit2D hit = Physics2D.Raycast(rigidbody.position + new Vector2(transform.localScale.x * 0.3f, 0), new Vector2(transform.localScale.x, 0), 0.5f);
 
-        if(hit)
-            hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x * strength, upwards);
+        if (hit)
+        {
+            //hit.collider.GetComponent<Rigidbody2D>().velocity = new Vector2(transform.localScale.x * strength, upwards);
+            if (facingRight)
+                hit.collider.GetComponent<PunchEnemyAI>().GetHit(strength, upwards, 1);
+            else
+                hit.collider.GetComponent<PunchEnemyAI>().GetHit(strength, upwards, -1);
+        }
+    }
+
+    public void GetHit(float strength, float upwards, int xDirection)
+    {
+        rigidbody.velocity = new Vector2(transform.localScale.x * strength * xDirection, upwards + timesHit);
+        timesHit += 1;
+        if (timesHit >= 10)
+            gameObject.SetActive(false);
     }
 
     private bool OnGround()
