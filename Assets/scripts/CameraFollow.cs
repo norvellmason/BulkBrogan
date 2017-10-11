@@ -28,7 +28,14 @@ public class CameraFollow : MonoBehaviour {
         foreach(GameObject target in targets)
             focus += new Vector3(target.transform.position.x, target.transform.position.y, zDepth);
         
-        focus /= targets.Length;
-        return focus;
+        focus /= targets.Length + 1;
+
+        if(targets.Length <= 1)
+            return focus;
+        else
+        {
+            float distance = (targets[0].transform.position - targets[1].transform.position).magnitude;
+            return new Vector3(focus.x, focus.y, Mathf.Pow(distance, 0.2f) * -10f);
+        }
     }
 }

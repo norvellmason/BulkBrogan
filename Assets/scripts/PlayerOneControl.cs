@@ -21,6 +21,9 @@ public class PlayerOneControl : MonoBehaviour {
         if(Input.GetKey(KeyCode.LeftArrow) && !Input.GetKey(KeyCode.RightArrow) || horizontalAxis < -.5)
             actionController.MoveLeft();
 
+        if(actionController.OnGround())
+            actionController.ApplyHorizontalFriction();
+
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetButtonDown("P2 Jump"))
             actionController.Jump();
 
@@ -30,9 +33,7 @@ public class PlayerOneControl : MonoBehaviour {
         if(Input.GetKeyDown(KeyCode.S) || Input.GetButtonDown("P2 Kick"))
             actionController.Kick();
 
-        if(transform.position.y < -5)
-        {
-            transform.position = new Vector3((float)((Random.value - 0.5) * 8), 5, 0);
-        }
+        if(Input.GetKeyDown(KeyCode.D) || Input.GetButtonDown("P2 BodySlam"))
+            actionController.BodySlam();
     }
 }
