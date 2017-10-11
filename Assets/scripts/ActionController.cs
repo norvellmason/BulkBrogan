@@ -10,6 +10,8 @@ public class ActionController : MonoBehaviour {
     public float jumpStrength;
     public float friction;
 
+    public bool canDie;
+
     public Sprite idleSprite;
     public Sprite punchSprite;
     public Sprite kickSprite;
@@ -104,7 +106,7 @@ public class ActionController : MonoBehaviour {
             {
                 Life -= 1;
 
-                if(Life < 0)
+                if(Life < 0 && canDie)
                 {
                     Destroy(gameObject);
                 }
