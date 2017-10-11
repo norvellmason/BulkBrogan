@@ -24,19 +24,27 @@ public class CameraFollow : MonoBehaviour {
     private Vector3 GetFocusPoint()
     {
         Vector3 focus = new Vector3();
+        int count = 0;
 
         foreach(GameObject target in targets)
             if(target != null)
+            {
                 focus += new Vector3(target.transform.position.x, target.transform.position.y, zDepth);
-        
-        focus /= targets.Length;
+                count += 1;
+            }
 
-        if(targets.Length <= 1)
-            return focus;
-        else
+        focus /= count;
+
+        float longestDistance = 10;
+
+        foreach(GameObject target in targets)
         {
-            float distance = (targets[0].transform.position - targets[1].transform.position).magnitude;
-            return new Vector3(focus.x, focus.y, Mathf.Pow(distance, 0.2f) * -10f);
+            if(target != null && (target.transform.position - focus).magnitude > longestDistance)
+            {
+                longestDistance = (target.transform.position - focus).magnitude;
+            }
         }
+
+        return new Vector3(focus.x, focus.y, -Mathf.Pow(longestDistance, 0.6f) * 3);
     }
 }

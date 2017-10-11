@@ -6,8 +6,7 @@ using UnityEngine.SceneManagement;
 
 public class DisplayLives : MonoBehaviour {
 
-    public GameObject player1;
-    public GameObject player2;
+    public GameObject[] players;
 
     private new AudioSource audio;
     public AudioClip gameEnd;
@@ -21,8 +20,7 @@ public class DisplayLives : MonoBehaviour {
         text = GetComponent<Text>();
         text.color = new Color(1, 1, 1);
 
-        player1 = GameObject.FindGameObjectsWithTag("Player")[0];
-        player2 = GameObject.FindGameObjectsWithTag("Player")[1];
+        players = GameObject.FindGameObjectsWithTag("Player");
 
         audio = GetComponent<AudioSource>();
         audio.PlayOneShot(gameBegin);
@@ -30,7 +28,7 @@ public class DisplayLives : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if(IsDead(player1) || IsDead(player2))
+        if(Count() <= 1)
         {
             if(gameEndTimer == 0)
                 audio.PlayOneShot(gameEnd);
@@ -38,13 +36,33 @@ public class DisplayLives : MonoBehaviour {
             gameEndTimer += 1;
 
             if(gameEndTimer > 180)
-            {
                 SceneManager.LoadScene("MainMenu");
-            }
+
+            text.text = "Game Over";
         }
-        
-        text.text = "Brogans: " + GetLivesString(player1) + "\n" + "Presses: " + GetLivesString(player2);
+        else
+        {
+            string healthString = "";
+            foreach(GameObject player in players)
+            {
+                if(!IsDead(player))
+                    healthString += GetLivesString(player) + "\n";
+            }
+
+            text.text = healthString;
+        }
 	}
+
+    private int Count()
+    {
+        int count = 0;
+
+        foreach(GameObject player in players)
+            if(!IsDead(player))
+                count += 1;
+
+        return count;
+    }
 
     private bool IsDead(GameObject player)
     {
@@ -61,7 +79,7 @@ public class DisplayLives : MonoBehaviour {
             return "DEAD";
         
         if(controller.Life >= 0)
-            return controller.Life.ToString();
+            return controller.name + ": " + controller.Life.ToString();
 
         return "DEAD";
     }

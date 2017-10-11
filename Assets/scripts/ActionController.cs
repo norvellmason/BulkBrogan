@@ -11,6 +11,7 @@ public class ActionController : MonoBehaviour {
     public float friction;
 
     public bool canDie;
+    public string name;
 
     public Sprite idleSprite;
     public Sprite punchSprite;
