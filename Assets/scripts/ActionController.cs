@@ -13,6 +13,7 @@ public class ActionController : MonoBehaviour {
     public Sprite idleSprite;
     public Sprite punchSprite;
     public Sprite kickSprite;
+    public Sprite slamSprite;
 
     public AudioClip jumpClip;
     public AudioClip hitClip;
@@ -21,6 +22,7 @@ public class ActionController : MonoBehaviour {
     public AudioClip deathClip;
     public AudioClip ohnoClip;
     public AudioClip bodySlamClip;
+    public AudioClip slamHitClip;
 
     private new Rigidbody2D rigidbody;
     private new BoxCollider2D collider;
@@ -56,15 +58,45 @@ public class ActionController : MonoBehaviour {
             if(kickTimer > 0)
                 kickTimer -= 1;
 
-            if(punchTimer == 0 && kickTimer == 0)
+            if(punchTimer == 0 && kickTimer == 0 && !bodySlam)
                 renderer.sprite = idleSprite;
             else if(punchTimer > 0)
                 renderer.sprite = punchSprite;
             else if(kickTimer > 0)
                 renderer.sprite = kickSprite;
+            else if(bodySlam)
+                renderer.sprite = slamSprite;
         }
 
-        Debug.Log(HitMultiplier);
+        Debug.DrawRay(transform.position - new Vector3(0, collider.size.y / 2 + 0.1f, 0), new Vector2(0, -1));
+        
+        if(bodySlam && OnGround())
+        {
+            bodySlam = false;
+            audio.PlayOneShot(slamHitClip);
+
+            if(collider != null)
+            {
+                RaycastHit2D hit = Physics2D.Raycast(transform.position - new Vector3(0, collider.size.y / 2 + 0.1f, 0), new Vector2(0, -1), 0.5f);
+
+                if(hit)
+                {
+                    ActionController controller = hit.collider.GetComponent<ActionController>();
+
+                    if(controller != null)
+                    {
+                        if(transform.position.x > hit.collider.transform.position.x)
+                        {
+                            controller.TakeHit(new Vector2(100f * rigidbody.velocity.y, 50));
+                        }
+                        else
+                        {
+                            controller.TakeHit(new Vector2(-100f * rigidbody.velocity.y , 50));
+                        }
+                    }
+                }
+            }
+        }
 
         if(rigidbody != null)
         {
@@ -194,9 +226,9 @@ public class ActionController : MonoBehaviour {
 
     public void BodySlam()
     {
-        if(punchTimer == 0 && kickTimer == 0 && !bodySlam)
+        if(punchTimer == 0 && kickTimer == 0 && !bodySlam && !OnGround())
         {
-            //bodySlam = true;
+            bodySlam = true;
             PlaySound(bodySlamClip);
 
             AddForce(new Vector2(0, -900));
