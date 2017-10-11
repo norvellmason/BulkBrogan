@@ -29,7 +29,7 @@ public class CameraFollow : MonoBehaviour {
             if(target != null)
                 focus += new Vector3(target.transform.position.x, target.transform.position.y, zDepth);
         
-        focus /= targets.Length + 1;
+        focus /= targets.Length;
 
         if(targets.Length <= 1)
             return focus;

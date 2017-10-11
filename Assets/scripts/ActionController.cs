@@ -25,6 +25,7 @@ public class ActionController : MonoBehaviour {
     public AudioClip ohnoClip;
     public AudioClip bodySlamClip;
     public AudioClip slamHitClip;
+    public AudioClip contactClip;
 
     private new Rigidbody2D rigidbody;
     private new BoxCollider2D collider;
@@ -89,11 +90,11 @@ public class ActionController : MonoBehaviour {
                     {
                         if(transform.position.x > hit.collider.transform.position.x)
                         {
-                            controller.TakeHit(new Vector2(100f * rigidbody.velocity.y, 50));
+                            controller.TakeHit(new Vector2(250f * rigidbody.velocity.y, 10));
                         }
                         else
                         {
-                            controller.TakeHit(new Vector2(-100f * rigidbody.velocity.y , 50));
+                            controller.TakeHit(new Vector2(-250f * rigidbody.velocity.y , 10));
                         }
                     }
                 }
@@ -102,7 +103,7 @@ public class ActionController : MonoBehaviour {
 
         if(rigidbody != null)
         {
-            if(transform.position.y < -5 || transform.position.y > 80 || transform.position.x > 35 || transform.position.x < -55)
+            if(transform.position.y < -20 || transform.position.y > 80 || transform.position.x > 35 || transform.position.x < -55)
             {
                 Life -= 1;
 
@@ -268,6 +269,7 @@ public class ActionController : MonoBehaviour {
                 }*/
                 
                 ActionController hitController = hit.collider.GetComponent<ActionController>();
+                PlaySound(contactClip);
 
                 if(hitController != null)
                     hitController.TakeHit(new Vector2(knockback * transform.localScale.x, knockup));
@@ -280,7 +282,14 @@ public class ActionController : MonoBehaviour {
         if(rigidbody != null && collider != null)
         {
             //return Physics2D.BoxCast(collider.transform.position - new Vector3(0, collider.size.y / 2 + 0.1f, 0), new Vector2(collider.size.x, 0), 0, new Vector2(0, -1), 0.5f);
-            return Physics2D.Raycast(collider.transform.position - new Vector3(0, collider.size.y / 2 + 0.1f, 0), new Vector2(0, -1), 0f);
+            if(Physics2D.Raycast(collider.transform.position - new Vector3(0, collider.size.y / 2 + 0.1f, 0), new Vector2(0, -1), 0f))
+                return true;
+
+            if(Physics2D.Raycast(collider.transform.position - new Vector3(collider.size.x / 2, collider.size.y / 2 + 0.1f, 0), new Vector2(0, -1), 0f))
+                return true;
+
+            if(Physics2D.Raycast(collider.transform.position - new Vector3(collider.size.x / -2, collider.size.y / 2 + 0.1f, 0), new Vector2(0, -1), 0f))
+                return true;
         }
 
         return false;
