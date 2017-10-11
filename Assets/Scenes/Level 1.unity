@@ -250,6 +250,7 @@ MonoBehaviour:
   deathClip: {fileID: 0}
   ohnoClip: {fileID: 0}
   bodySlamClip: {fileID: 0}
+  slamHitClip: {fileID: 0}
 --- !u!50 &62771367
 Rigidbody2D:
   serializedVersion: 4
@@ -395,6 +396,7 @@ MonoBehaviour:
   deathClip: {fileID: 0}
   ohnoClip: {fileID: 0}
   bodySlamClip: {fileID: 0}
+  slamHitClip: {fileID: 0}
 --- !u!50 &202476409
 Rigidbody2D:
   serializedVersion: 4
@@ -667,6 +669,7 @@ GameObject:
   - component: {fileID: 560434844}
   - component: {fileID: 560434843}
   - component: {fileID: 560434848}
+  - component: {fileID: 560434849}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -757,6 +760,86 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   followRate: 0.256
   zDepth: -10
+--- !u!82 &560434849
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 560434842}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 135a46086ac3c284cbf3784d0206ca9e, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 0.474
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - serializedVersion: 2
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!1 &594447178
 GameObject:
   m_ObjectHideFlags: 0
@@ -802,6 +885,7 @@ MonoBehaviour:
   deathClip: {fileID: 0}
   ohnoClip: {fileID: 0}
   bodySlamClip: {fileID: 0}
+  slamHitClip: {fileID: 0}
 --- !u!50 &594447180
 Rigidbody2D:
   serializedVersion: 4
@@ -947,6 +1031,7 @@ MonoBehaviour:
   deathClip: {fileID: 0}
   ohnoClip: {fileID: 0}
   bodySlamClip: {fileID: 0}
+  slamHitClip: {fileID: 0}
 --- !u!50 &678487062
 Rigidbody2D:
   serializedVersion: 4
@@ -1380,6 +1465,7 @@ MonoBehaviour:
   deathClip: {fileID: 0}
   ohnoClip: {fileID: 0}
   bodySlamClip: {fileID: 0}
+  slamHitClip: {fileID: 0}
 --- !u!50 &892516386
 Rigidbody2D:
   serializedVersion: 4
@@ -1622,6 +1708,7 @@ MonoBehaviour:
   deathClip: {fileID: 0}
   ohnoClip: {fileID: 0}
   bodySlamClip: {fileID: 0}
+  slamHitClip: {fileID: 0}
 --- !u!50 &1051197815
 Rigidbody2D:
   serializedVersion: 4
@@ -1881,6 +1968,7 @@ MonoBehaviour:
   deathClip: {fileID: 8300000, guid: 3df9adebe90bbee48bb9f76dacd314b5, type: 3}
   ohnoClip: {fileID: 8300000, guid: f34ad7d8f7d01684e8914e8ed868c1dc, type: 3}
   bodySlamClip: {fileID: 8300000, guid: e1f7f2294073e94479ad802574d8f21e, type: 3}
+  slamHitClip: {fileID: 8300000, guid: 17d008cd530293b4eaf7b168a6b6f85e, type: 3}
 --- !u!82 &1174788317
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2311,6 +2399,7 @@ MonoBehaviour:
   deathClip: {fileID: 8300000, guid: 3df9adebe90bbee48bb9f76dacd314b5, type: 3}
   ohnoClip: {fileID: 8300000, guid: f34ad7d8f7d01684e8914e8ed868c1dc, type: 3}
   bodySlamClip: {fileID: 8300000, guid: e1f7f2294073e94479ad802574d8f21e, type: 3}
+  slamHitClip: {fileID: 8300000, guid: 17d008cd530293b4eaf7b168a6b6f85e, type: 3}
 --- !u!212 &1377976449
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -2360,7 +2449,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1377976446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.72, y: -3.67, z: 0}
+  m_LocalPosition: {x: -2.67, y: -3.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2466,7 +2555,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
   spreadCustomCurve:
     serializedVersion: 2
     m_Curve:
@@ -2490,7 +2579,7 @@ AudioSource:
       tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
-    m_RotationOrder: 4
+    m_RotationOrder: 0
 --- !u!1 &1605393712
 GameObject:
   m_ObjectHideFlags: 0
@@ -2536,6 +2625,7 @@ MonoBehaviour:
   deathClip: {fileID: 0}
   ohnoClip: {fileID: 0}
   bodySlamClip: {fileID: 0}
+  slamHitClip: {fileID: 0}
 --- !u!50 &1605393714
 Rigidbody2D:
   serializedVersion: 4
@@ -2852,6 +2942,7 @@ MonoBehaviour:
   deathClip: {fileID: 0}
   ohnoClip: {fileID: 0}
   bodySlamClip: {fileID: 0}
+  slamHitClip: {fileID: 0}
 --- !u!50 &1872916813
 Rigidbody2D:
   serializedVersion: 4
@@ -2997,6 +3088,7 @@ MonoBehaviour:
   deathClip: {fileID: 0}
   ohnoClip: {fileID: 0}
   bodySlamClip: {fileID: 0}
+  slamHitClip: {fileID: 0}
 --- !u!50 &1891998617
 Rigidbody2D:
   serializedVersion: 4
